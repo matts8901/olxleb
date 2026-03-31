@@ -1,38 +1,34 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React from 'react'; // Ensure React is imported
+import { StyleSheet } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStaticNavigation } from '@react-navigation/native';
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+// Make sure this path is correct and HomeScreen is exported as 'default'
+import HomeScreen from './src/Screens/HomeScreen'; 
+import SearchFiltersScreen from './src/Screens/SearchFiltersScreen';
+import SearchResultsScreen from './src/Screens/SearchResultsScreen';
+
+const RootStack = createNativeStackNavigator({
+  screens: {
+    Home:{
+      screen:HomeScreen,
+      options: {
+        title: 'Home'
+      }
+    } ,
+    SearchFilters:SearchFiltersScreen,
+    SearchResults:SearchResultsScreen,
+  },
+});
+
+const Navigation = createStaticNavigation(RootStack);
 
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
-
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
+      <Navigation />
     </SafeAreaProvider>
-  );
-}
-
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
-  return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
-    </View>
   );
 }
 
