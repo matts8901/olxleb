@@ -1,13 +1,12 @@
-import React from 'react'; // Ensure React is imported
+import React from 'react'; 
 import { StyleSheet } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createStaticNavigation } from '@react-navigation/native';
-
-// Make sure this path is correct and HomeScreen is exported as 'default'
 import HomeScreen from './src/Screens/HomeScreen'; 
 import SearchFiltersScreen from './src/Screens/SearchFiltersScreen';
 import SearchResultsScreen from './src/Screens/SearchResultsScreen';
+import SubCategoriesScreen from './src/Screens/SubCategoriesScreen';
 
 const RootStack = createNativeStackNavigator({
   screens: {
@@ -19,6 +18,7 @@ const RootStack = createNativeStackNavigator({
     } ,
     SearchFilters:SearchFiltersScreen,
     SearchResults:SearchResultsScreen,
+    SubCategories:SubCategoriesScreen
   },
 });
 
