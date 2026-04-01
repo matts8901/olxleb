@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, ActivityIndicator, TextInput, TouchableOpacity } from 'react-native';
 
@@ -18,8 +19,8 @@ interface CategoryField {
 export default function SearchFiltersScreen({ route }: any) {
   const [categoryfields, setCategoryFields] = useState<CategoryField[]>([]);
   const [loading, setLoading] = useState(true);
-  const targetCategoryID = route.params?.targetCategoryID || "49";
-
+  const targetCategoryID = route.params?.targetCategoryID;
+  const navigation = useNavigation<any>();
   useEffect(() => {
     fetchcategoryfields();
   }, []);
@@ -95,7 +96,9 @@ export default function SearchFiltersScreen({ route }: any) {
       </ScrollView>
 
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.applyButton}>
+        <TouchableOpacity style={styles.applyButton} onPress={()=>{
+          navigation.navigate('SearchResults')
+        }}>
           <Text style={styles.applyButtonText}>Show Results</Text>
         </TouchableOpacity>
       </View>

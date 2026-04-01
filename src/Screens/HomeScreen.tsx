@@ -1,11 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList } from 'react-native';
 import SearchBar from '../Components/SearchBar';
 import NavigationBar from '../Components/NavigationBar';
 import CategoryCircle from '../Components/CategoryWidget';
 import { fetchCategoriesTitles } from '../services/fetchCategoriesTitles';
 import { fetchCategories } from '../services/fetchCategories';
+import ItemCard from '../Components/ItemCard';
 
 interface Category {
   id: number;
@@ -14,9 +15,31 @@ interface Category {
 
 export default function HomeScreen() {
 
+  const propertyDataList = [
+    {
+      imageUri: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1000',
+      price: 235000,
+      description: 'Duplex 6P 114m² Terrasse – Ly...',
+      location: 'Lyon, France',
+      postedTime: '5 days ago',
+      beds: 4,
+      baths: 3,
+      size: 114,
+    },
+    {
+      imageUri: 'https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=1000',
+      price: 150000,
+      description: 'Modern Apartment in City Center',
+      location: 'Paris, France',
+      postedTime: '2 days ago',
+      beds: 2,
+      baths: 1,
+      size: 75,
+    },
+  ];
+
   const navigation = useNavigation<any>();
   
-
   const [categorytitles, setCategory] = useState<Category[]>([]);
 
 
@@ -65,11 +88,24 @@ export default function HomeScreen() {
         ))}
       </ScrollView>
 
-      <View style={styles.mainContent}>
-        <Text style={{ color: '#ccc' }}>
-          {/* Body */}
-        </Text>
-      </View>
+      <FlatList
+        data={propertyDataList}
+        keyExtractor={(item, index) => index.toString()}
+        numColumns={2} // Display items in a grid layout
+        contentContainerStyle={{ paddingHorizontal: 10 }}
+        renderItem={({ item }) => (
+          <ItemCard
+            imageUri={item.imageUri}
+            price={item.price}
+            description={item.description}
+            location={item.location}
+            postedTime={item.postedTime}
+            beds={item.beds}
+            baths={item.baths}
+            size={item.size}
+          />
+        )}
+      />
 
       {/* Bottom Navigation Bar */}
       <NavigationBar />
