@@ -1,8 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import SearchFiltersScreen from './SearchFiltersScreen';
-import { Button } from '@react-navigation/elements';
 import SearchBar from '../Components/SearchBar';
 import NavigationBar from '../Components/NavigationBar';
 import CategoryCircle from '../Components/CategoryWidget';

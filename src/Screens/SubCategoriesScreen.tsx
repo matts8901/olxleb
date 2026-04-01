@@ -1,6 +1,6 @@
-import { FlatList, Text, View } from "react-native";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { RouteProp } from "@react-navigation/native";
+import { RouteProp, useNavigation } from "@react-navigation/native";
 
 interface Category {
   id: number;
@@ -9,7 +9,7 @@ interface Category {
 }
 
 type RootStackParamList = {
-  SubCategories: { categoryid: number };
+  SubCategories: { categoryid: number },
 };
 
 interface Props {
@@ -17,7 +17,11 @@ interface Props {
 }
 
 export default function SubCategoriesScreen({ route }: Props) {
+
+  const navigation = useNavigation<any>();
+  
   const { categoryid } = route.params;
+
 
   const [subcategory, setSubcategory] = useState<Category[]>([]);
   const [parentName, setParentName] = useState("");
@@ -28,6 +32,7 @@ export default function SubCategoriesScreen({ route }: Props) {
 
   async function fetchCategoryData() {
     try {
+
       const response = await fetch('https://www.olx.com.lb/api/categories');
       const data: Category[] = await response.json();
 
@@ -42,6 +47,7 @@ export default function SubCategoriesScreen({ route }: Props) {
     }
   }
 
+
   return (
     <View style={{ padding: 20, flex: 1, backgroundColor: 'white' }}>
       <Text style={{ fontSize: 22, fontWeight: 'bold', marginBottom: 20 }}>
@@ -52,9 +58,20 @@ export default function SubCategoriesScreen({ route }: Props) {
         data={subcategory}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View style={{ paddingVertical: 17, borderBottomWidth: 1, borderColor: '#eee' }}>
+          <TouchableOpacity
+          onPress={()=>{
+                navigation.navigate('SearchFilters',{
+                  targetCategoryID: item.id,
+                })
+              }}
+          >
+            <View style={{ paddingVertical: 17, borderBottomWidth: 1, borderColor: '#eee' }}>
             <Text style={{ fontSize: 16 }}>{item.name}</Text>
+            
+
           </View>
+          </TouchableOpacity>
+        
         )}
       />
     </View>
