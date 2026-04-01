@@ -1,56 +1,80 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import SearchFiltersScreen from './SearchFiltersScreen';
+import { Button } from '@react-navigation/elements';
+import SearchBar from '../Components/SearchBar';
+import NavigationBar from '../Components/NavigationBar';
+import CategoryCircle from '../Components/CategoryWidget';
+import { fetchCategoriesTitles } from '../services/fetchCategoriesTitles';
+import { fetchCategories } from '../services/fetchCategories';
+
+interface Category {
+  id: number;
+  name: string;
+}
 
 export default function HomeScreen() {
+
   const navigation = useNavigation<any>();
-    return (
+  
+
+  const [categorytitles, setCategory] = useState<Category[]>([]);
+
+
+  useEffect(() => {
+    // Fetching category titles (Vehicles, Properties...)
+    fetchCategoriesTitles()
+      .then((categories) => {
+        setCategory(categories);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+
+      fetchCategories()
+  }, [])
+
+  return (
     <View style={styles.container}>
-      {/* Main Content Area (Scrollable content would go here) */}
+      <SearchBar
+        onSearch={(text) => console.log("Searching for:", text)}
+        
+      />
+
+      <Text style={styles.SubTitle}>
+        All Categories
+      </Text>
+
+      {/* displaying category titles here */}
+      <ScrollView
+        horizontal={true}
+        showsHorizontalScrollIndicator={false} 
+        contentContainerStyle={{ paddingHorizontal: 10 }}
+      >
+        {categorytitles.map((categname, index) => (
+          <View key={index} style={{ alignItems: 'center' }}>
+            <CategoryCircle
+              title={categname.name}
+              image={{ uri: 'https://www.olx.com.lb/path/to/image.png' }}
+              onPress={()=>{
+                navigation.navigate('SubCategories',{
+                  categoryid: categname.id,
+                })
+              }}
+            />
+          </View>
+        ))}
+      </ScrollView>
+
       <View style={styles.mainContent}>
-        <Text style={{ color: '#ccc' }}>Home Screen</Text>
+        <Text style={{ color: '#ccc' }}>
+          {/* Body */}
+        </Text>
       </View>
 
       {/* Bottom Navigation Bar */}
-      <View style={styles.navContainer}>
-        
-        {/* Home */}
-        <TouchableOpacity style={styles.navItem} onPress={() => {navigation.navigate('Home')}}>
-          <View style={[styles.iconPlaceholder, { backgroundColor: '#333' }]} />
-          <Text style={styles.navText} >HOME</Text>
-        </TouchableOpacity>
-
-        {/* Chats */}
-        <TouchableOpacity style={styles.navItem} onPress={() => {navigation.navigate('SearchFilters')}}>
-          <View style={styles.iconPlaceholder}  />
-          <Text style={styles.navText}>CHATS</Text>
-        </TouchableOpacity>
-
-        {/* Sell (Spacer for the floating button) */}
-        <View style={styles.navItem}>
-          <View style={styles.sellSpacer} />
-          <Text style={styles.navText}>SELL</Text>
-        </View>
-
-        {/* My Ads */}
-        <TouchableOpacity style={styles.navItem}>
-          <View style={styles.iconPlaceholder} />
-          <Text style={styles.navText}>MY ADS</Text>
-        </TouchableOpacity>
-
-        {/* Account */}
-        <TouchableOpacity style={styles.navItem}>
-          <View style={styles.iconPlaceholder} />
-          <Text style={styles.navText}>ACCOUNT</Text>
-        </TouchableOpacity>
-
-        {/* The Actual Floating Yellow Button */}
-        <TouchableOpacity style={styles.floatingButton}>
-          <Text style={styles.plusIcon}>+</Text>
-        </TouchableOpacity>
-
-      </View>
+      <NavigationBar />
     </View>
   );
 }
@@ -83,7 +107,7 @@ const styles = StyleSheet.create({
   iconPlaceholder: {
     width: 24,
     height: 24,
-    backgroundColor: '#999', 
+    backgroundColor: '#999',
     borderRadius: 5,
     marginBottom: 4,
   },
@@ -121,4 +145,9 @@ const styles = StyleSheet.create({
     fontWeight: '300',
     marginTop: -4, // Optical centering
   },
+  SubTitle: {
+    paddingLeft: 20,
+    fontSize: 18,
+    fontWeight: '600',
+  }
 });
