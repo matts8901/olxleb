@@ -7,6 +7,7 @@ import CategoryCircle from '../Components/CategoryWidget';
 import { fetchCategoriesTitles } from '../services/fetchCategoriesTitles';
 import { fetchCategories } from '../services/fetchCategories';
 import ItemCard from '../Components/ItemCard';
+import { getCategoryImage } from '../utils/categoryAssets';
 
 interface Category {
   id: number;
@@ -14,12 +15,14 @@ interface Category {
 }
 
 export default function HomeScreen() {
+  
+// Hardcoded data to use for item display
 
   const propertyDataList = [
     {
       imageUri: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1000',
       price: 235000,
-      description: 'Duplex 6P 114m² Terrasse – Ly...',
+      description: 'Duplex 6P 114m² Terrasse – Lyon',
       location: 'Lyon, France',
       postedTime: '5 days ago',
       beds: 4,
@@ -38,13 +41,16 @@ export default function HomeScreen() {
     },
   ];
 
+  //navigation
   const navigation = useNavigation<any>();
-  
+
+  //category titles state variable
   const [categorytitles, setCategory] = useState<Category[]>([]);
 
+      // Fetching category titles (Vehicles, Properties...) each time the screen is loaded
 
   useEffect(() => {
-    // Fetching category titles (Vehicles, Properties...)
+
     fetchCategoriesTitles()
       .then((categories) => {
         setCategory(categories);
@@ -53,14 +59,14 @@ export default function HomeScreen() {
         console.log(e);
       });
 
-      fetchCategories()
+    fetchCategories()
   }, [])
 
   return (
     <View style={styles.container}>
       <SearchBar
         onSearch={(text) => console.log("Searching for:", text)}
-        
+
       />
 
       <Text style={styles.SubTitle}>
@@ -70,17 +76,17 @@ export default function HomeScreen() {
       {/* displaying category titles here */}
       <ScrollView
         horizontal={true}
-        showsHorizontalScrollIndicator={false} 
+        showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ paddingHorizontal: 10 }}
       >
-        {categorytitles.map((categname, index) => (
+        {categorytitles.map((categ, index) => (
           <View key={index} style={{ alignItems: 'center' }}>
             <CategoryCircle
-              title={categname.name}
-              image={{ uri: 'https://www.olx.com.lb/path/to/image.png' }}
-              onPress={()=>{
-                navigation.navigate('SubCategories',{
-                  categoryid: categname.id,
+              title={categ.name}
+              image={getCategoryImage(categ.id)}
+              onPress={() => {
+                navigation.navigate('SubCategories', {
+                  categoryid: categ.id,
                 })
               }}
             />
@@ -91,7 +97,7 @@ export default function HomeScreen() {
       <FlatList
         data={propertyDataList}
         keyExtractor={(item, index) => index.toString()}
-        numColumns={2} // Display items in a grid layout
+        numColumns={2}
         contentContainerStyle={{ paddingHorizontal: 10 }}
         renderItem={({ item }) => (
           <ItemCard
