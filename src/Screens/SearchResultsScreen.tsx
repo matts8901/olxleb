@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, TextInput, FlatList, SafeAreaView } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, TextInput, FlatList } from 'react-native';
 import ItemCardResults from '../Components/ItemCardResults';
 
 
@@ -31,32 +30,16 @@ const MOCK_CARS = [
   }
 ];
 
-// --- Sub-components ---
 const FilterPill = ({ label, isSelected, iconName, showClose }: any) => (
   <View style={[styles.filterPill, isSelected && styles.filterPillSelected]}>
-    {iconName && <Ionicons name={iconName} size={16} color={isSelected ? '#4FC3F7' : '#555'} style={{ marginRight: 6 }} />}
     <Text style={[styles.filterPillText, isSelected && styles.filterPillTextSelected]}>{label}</Text>
-    {iconName === 'chevron-down' && <Ionicons name="chevron-down" size={12} color="#555" style={{ marginLeft: 6 }} />}
-    {showClose && <Ionicons name="close" size={16} color="#333" style={{ marginLeft: 6 }} />}
-  </View>
-);
-
-const FeaturedBuisness = ({ logoUrl, name }: any) => (
-  <View style={styles.businessContainer}>
-    <View style={styles.businessLogoPlaceholder}>
-        <Text style={{fontSize: 10, color: '#999'}}>LOGO</Text>
-    </View>
-    <Text style={styles.businessName}>{name}</Text>
   </View>
 );
 
 const ListHeader = () => (
   <View style={styles.headerContainer}>
-    {/* 1. Search Bar */}
     <View style={styles.searchRow}>
-      <Ionicons name="chevron-back" size={28} color="#333" />
       <View style={styles.searchBar}>
-        <Ionicons name="search" size={20} color="#777" />
         <TextInput
           style={styles.searchInput}
           placeholder="What are you looking for?"
@@ -78,7 +61,6 @@ const ListHeader = () => (
       </Text>
       <TouchableOpacity style={styles.sortButton}>
         <Text style={styles.sortText}>Sort By</Text>
-        <Ionicons name="swap-vertical" size={16} color="#4FC3F7" />
       </TouchableOpacity>
     </View>
 
@@ -100,7 +82,6 @@ const ListHeader = () => (
       <Text style={styles.sectionTitle}>Elite Ads</Text>
       <TouchableOpacity style={styles.viewAllButton}>
         <Text style={styles.viewAllText}>View all</Text>
-        <Ionicons name="chevron-forward" size={16} color="#333" />
       </TouchableOpacity>
     </View>
   </View>
@@ -108,7 +89,7 @@ const ListHeader = () => (
 
 const SearchResultsScreen = () => {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+    <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <FlatList
         data={MOCK_CARS}
         keyExtractor={(item) => item.id}
@@ -123,7 +104,7 @@ const SearchResultsScreen = () => {
         )}
         contentContainerStyle={{ paddingBottom: 20 }}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 

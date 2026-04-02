@@ -1,18 +1,18 @@
-export interface Category {
-  id: number;
-  name: string;
-}
+//fetch all categories json
 
-export async function fetchCategoriesTitles(): Promise<Category[]> {
+export async function fetchCategories() {
   try {
     const response = await fetch('https://www.olx.com.lb/api/categories');
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
 
     const data = await response.json();
+
+    // console.log(data);
     
-    return data.map((category: any) => ({
-      id: category.id,
-      name: category.name,
-    }));
+    return data;
 
   } catch (error) {
     console.error('Failed to fetch categories:', error);

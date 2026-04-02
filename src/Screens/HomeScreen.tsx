@@ -4,8 +4,8 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList } from '
 import SearchBar from '../Components/SearchBar';
 import NavigationBar from '../Components/NavigationBar';
 import CategoryCircle from '../Components/CategoryWidget';
-import { fetchCategoriesTitles } from '../services/fetchCategoriesTitles';
-import { fetchCategories } from '../services/fetchCategories';
+import { fetchCategoriesTitles } from '../api/fetchCategoriesTitles';
+import { fetchCategories } from '../api/fetchCategories';
 import ItemCard from '../Components/ItemCard';
 import { getCategoryImage } from '../utils/categoryAssets';
 

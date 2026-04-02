@@ -5,10 +5,9 @@ import {
     TextInput,
     TouchableOpacity,
     Platform,
-    Text
+    Text,
+    Image
 } from 'react-native';
-// You are importing FontAwesome here
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 interface SearchBarProps {
     onSearch?: (text: string) => void;
@@ -26,8 +25,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onFilterPress }) => {
     return (
         <View style={styles.outerContainer}>
             <View style={styles.searchSection}>
-                {/* Keep the Emoji as requested */}
-                <Icon name="search" size={18} color="#000000" style={styles.searchIcon} />
+                <Image
+                    source={require("../../assets/SearchIcon.png")}
+                    style={styles.searchIcon}
+                />
                 <TextInput
                     style={styles.input}
                     placeholder="What are you looking for?"
@@ -35,12 +36,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, onFilterPress }) => {
                     value={query}
                     onChangeText={handleChange}
                 />
-
-                {query.length > 0 && (
-                    <TouchableOpacity onPress={() => handleChange('')}>
-                        <Icon name="times-circle" size={18} color="#999" style={styles.icon} />
-                    </TouchableOpacity>
-                )}
             </View>
 
         </View>
@@ -81,12 +76,13 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 15,
         color: '#333',
-        paddingVertical: 0, // Removes default Android padding
+        paddingVertical: 0,
     },
     searchIcon: {
-        marginRight: 10,
-        marginLeft: 5,
-    },
+        width: 40,
+        height: 40,
+        tintColor: "#000000",
+    }
 });
 
 export default SearchBar;

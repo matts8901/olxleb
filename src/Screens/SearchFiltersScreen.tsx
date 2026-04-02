@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, ActivityIndicator, TextInput, TouchableOpacity } from 'react-native';
+import { fetchCategoryFields } from '../api/fetchCategoryFields';
 
 interface Choice {
   id: number;
@@ -22,22 +23,13 @@ export default function SearchFiltersScreen({ route }: any) {
   const targetCategoryID = route.params?.targetCategoryID;
   const navigation = useNavigation<any>();
   useEffect(() => {
-    fetchcategoryfields();
-  }, []);
-
-  async function fetchcategoryfields() {
-    try {
-      const response = await fetch('https://www.olx.com.lb/api/categoryFields?includeChildCategories=true&splitByCategoryIDs=true&flatChoices=true&groupChoicesBySection=true&flat=true');
-      const data = await response.json();
-      if (data && data[targetCategoryID]?.flatFields) {
-        setCategoryFields(data[targetCategoryID].flatFields);
-      }
-    } catch (error) {
-      console.error("Fetch error:", error);
-    } finally {
+    (async () => {
+      setLoading(true);
+      const fields = await fetchCategoryFields(targetCategoryID);
+      setCategoryFields(fields);
       setLoading(false);
-    }
-  }
+    })();
+  }, []);
 
 
   const RenderRange = ({ field }: { field: CategoryField }) => (

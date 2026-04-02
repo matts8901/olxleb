@@ -1,6 +1,7 @@
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { RouteProp, useNavigation } from "@react-navigation/native";
+import { fetchSubCategories } from '../api/fetchSubCategories';
 
 interface Category {
   id: number;
@@ -27,25 +28,14 @@ export default function SubCategoriesScreen({ route }: Props) {
   const [parentName, setParentName] = useState("");
 
   useEffect(() => {
-    fetchCategoryData();
-  }, [categoryid]);
-
-  async function fetchCategoryData() {
-    try {
-
-      const response = await fetch('https://www.olx.com.lb/api/categories');
-      const data: Category[] = await response.json();
-
-      const targetCategory = data.find((cat) => cat.id === categoryid);
-
-      if (targetCategory) {
-        setParentName(targetCategory.name);
-        setSubcategory(targetCategory.children);
+    (async () => {
+      const result = await fetchSubCategories(categoryid);
+      if (result) {
+        setParentName(result.name);
+        setSubcategory(result.children);
       }
-    } catch (e) {
-      console.log("Fetch Error: ", e);
-    }
-  }
+    })();
+  }, [categoryid]);
 
 
   return (
