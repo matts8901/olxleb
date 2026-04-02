@@ -29,7 +29,7 @@ The application is designed to provide a simple and intuitive browsing experienc
    - Users enter a keyword directly into the search bar.
 
 2. **Results Screen**
-   - Users are taken مباشرة to the results screen based on their search query.
+   - Users are taken to the results screen based on their search query.
    - Filters can still be applied to refine the results.
 
 ---
