@@ -11,12 +11,14 @@ export default function NavigationBar() {
       <NavItem 
         label="HOME" 
         isActive={true} 
-        onPress={() => navigation.navigate('Home')} 
+        onPress={() => navigation.navigate('Home')}
+        imagepath={require("../../assets/HomeIcon.png")}  
       />
       
       <NavItem 
         label="CHATS" 
-        onPress={() => console.log('Navigate to Chats')} 
+        onPress={() => console.log('Navigate to Chats')}
+        imagepath={require("../../assets/Chaticon.png")}   
       />
 
       <View style={styles.navItem}>
@@ -27,11 +29,13 @@ export default function NavigationBar() {
       <NavItem 
         label="MY ADS" 
         onPress={() => console.log('Navigate to Ads')} 
+        imagepath={require("../../assets/Myads.png")}  
       />
       
       <NavItem 
         label="ACCOUNT" 
-        onPress={() => console.log('Navigate to Account')} 
+        onPress={() => console.log('Navigate to Account')}
+        imagepath={require("../../assets/accounticon.png")}   
       />
 
       <TouchableOpacity style={styles.floatingButton}>

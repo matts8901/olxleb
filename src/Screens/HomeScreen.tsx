@@ -1,3 +1,11 @@
+/**
+ * HomeScreen
+ *
+ * The entry point of the app. Users can either search using the search bar or browse by category.
+ * Selecting a category leads to subcategories, helping users narrow down their search.
+ *
+ * Flow: HomeScreen → SubCategoriesScreen → SearchFiltersScreen → SearchResultsScreen
+ */
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList } from 'react-native';

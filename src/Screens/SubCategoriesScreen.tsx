@@ -1,3 +1,11 @@
+/**
+ * SubCategoriesScreen
+ *
+ * After choosing a category, users select a subcategory to further refine their search.
+ * This step ensures results are more relevant to what the user is looking for.
+ *
+ * Flow: HomeScreen → SubCategoriesScreen → SearchFiltersScreen → SearchResultsScreen
+ */
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { RouteProp, useNavigation } from "@react-navigation/native";

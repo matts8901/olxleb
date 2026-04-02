@@ -1,17 +1,15 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons'; // Requires installation
+
 
 const ItemCardResults = ({ data, onSave, onCall, onWhatsApp }: any) => {
   return (
     <View style={styles.cardContainer}>
-      {/* 1. Gold "Elite" Header */}
       <View style={styles.eliteHeader}>
-        <Ionicons name="ribbon" size={20} color="#333" />
+  
         <Text style={styles.eliteText}>Elite</Text>
       </View>
 
-      {/* 2. Main Image Area */}
       <View style={styles.imageWrapper}>
         <Image
           source={{ uri: data.imageUrl }}
@@ -19,35 +17,29 @@ const ItemCardResults = ({ data, onSave, onCall, onWhatsApp }: any) => {
           resizeMode="cover"
         />
         
-        {/* Absolute-positioned "Verified" badge */}
         <View style={styles.verifiedBadge}>
-          <Ionicons name="checkmark-circle" size={16} color="#fff" />
+    
           <Text style={styles.verifiedText}>Verified</Text>
         </View>
 
-        {/* Absolute-positioned Favorite Heart */}
         <TouchableOpacity style={styles.heartButton}>
-          <Ionicons name="heart-outline" size={24} color="#333" />
+    
         </TouchableOpacity>
       </View>
 
-      {/* 3. Bottom Content Section */}
       <View style={styles.contentContainer}>
-        {/* Price and Save Button Row */}
         <View style={styles.priceRow}>
           <Text style={styles.priceText}>USD {data.price.toLocaleString()}</Text>
           <TouchableOpacity style={styles.saveButton} onPress={onSave}>
-            <Ionicons name="heart-outline" size={18} color="#333" />
+      
             <Text style={styles.saveButtonText}>Save</Text>
           </TouchableOpacity>
         </View>
 
-        {/* Title/Description */}
         <Text style={styles.titleText} numberOfLines={1}>
           {data.title}
         </Text>
 
-        {/* Stats Row */}
         <View style={styles.statsRow}>
           <Text style={styles.statsText}>{data.year}</Text>
           <Text style={styles.statsSeparator}>|</Text>
@@ -56,23 +48,20 @@ const ItemCardResults = ({ data, onSave, onCall, onWhatsApp }: any) => {
           <Text style={styles.statsText}>{data.fuelType}</Text>
         </View>
 
-        {/* Location, Time, and Dealer Logo Row */}
         <View style={styles.locationRow}>
           <View style={styles.locationTextStack}>
             <Text style={styles.locationText}>{data.location}</Text>
             <Text style={styles.timeText}>{data.postedTime}</Text>
           </View>
-          {/* Use a placeholder image URI or require() for local image */}
           <Image source={{ uri: data.dealerLogoUrl }} style={styles.dealerLogo} />
         </View>
 
-        {/* 4. Action Buttons (WhatsApp and Call) */}
         <View style={styles.actionButtonsRow}>
           <TouchableOpacity style={styles.whatsappButton} onPress={onWhatsApp}>
-            <Ionicons name="logo-whatsapp" size={22} color="white" />
+      
           </TouchableOpacity>
           <TouchableOpacity style={styles.callButton} onPress={onCall}>
-            <Ionicons name="call-outline" size={20} color="#333" />
+      
             <Text style={styles.callButtonText}>Call</Text>
           </TouchableOpacity>
         </View>

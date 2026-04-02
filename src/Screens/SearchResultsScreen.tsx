@@ -1,3 +1,11 @@
+/**
+ * SearchResultsScreen
+ *
+ * Displays the final list of results based on the user's search or selected filters.
+ * Users can browse, further refine, and select items for more details.
+ *
+ * Flow: HomeScreen → SubCategoriesScreen → SearchFiltersScreen → SearchResultsScreen
+ */
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, TextInput, FlatList } from 'react-native';
 import ItemCardResults from '../Components/ItemCardResults';

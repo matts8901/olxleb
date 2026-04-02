@@ -1,3 +1,11 @@
+/**
+ * SearchFiltersScreen
+ *
+ * Users apply filters based on the selected subcategory (e.g., price, features).
+ * This screen helps users customize their search to see only the most relevant results.
+ *
+ * Flow: HomeScreen → SubCategoriesScreen → SearchFiltersScreen → SearchResultsScreen
+ */
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, StyleSheet, ActivityIndicator, TextInput, TouchableOpacity } from 'react-native';

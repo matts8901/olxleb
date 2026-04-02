@@ -1,22 +1,19 @@
 import React from 'react';
-import { TouchableOpacity, View, Text, StyleSheet, ColorValue } from 'react-native';
+import { TouchableOpacity, View, Text, StyleSheet, ColorValue, Image, ImageSourcePropType } from 'react-native';
 
 interface NavItemProps {
   label: string;
   onPress?: () => void;
   isActive?: boolean;
-  iconColor?: ColorValue;
+  imagepath: ImageSourcePropType;
 }
 
-export const NavItem: React.FC<NavItemProps> = ({ label, onPress, isActive, iconColor }) => {
+export const NavItem: React.FC<NavItemProps> = ({ label, onPress, isActive, imagepath }) => {
   return (
     <TouchableOpacity style={styles.navItem} onPress={onPress}>
-      <View 
-        style={[
-          styles.iconPlaceholder, 
-          { backgroundColor: isActive ? '#333' : (iconColor || '#999') }
-        ]} 
-      />
+      <Image
+      source={imagepath}               
+          />
       <Text style={[styles.navText, isActive && { color: '#000' }]}>
         {label}
       </Text>
